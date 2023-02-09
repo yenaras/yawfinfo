@@ -5,7 +5,6 @@ import numpy as np
 import pytesseract
 import cv2
 import re
-import pandas as pd
 import imutils
 
 pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
@@ -30,16 +29,18 @@ def threshold(image):
 
 
 def clean(text):
-    return re.sub('[^A-Za-z0-9" "]+', ' ', text)
+    return re.sub(r'[^\w ]+', ' ', text)
 
 
-dict_list = [ 
+dict_list = [
     {"top": 430, "left": 2420, "width": 220, "height": 35},
     {"top": 430, "left": 2655, "width": 220, "height": 35},
     {"top": 430, "left": 2888, "width": 220, "height": 35},
     {"top": 430, "left": 3120, "width": 220, "height": 35}
 ]
 data = []
+
+
 def relic_drops():
     with mss.mss() as sct:
         for i in dict_list:
